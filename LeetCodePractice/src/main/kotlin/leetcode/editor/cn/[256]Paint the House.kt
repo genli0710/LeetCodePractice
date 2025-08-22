@@ -8,7 +8,7 @@ class paint_the_house {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        fun minCost(costs: Array<IntArray>): Int {
+        fun minCostDP(costs: Array<IntArray>): Int {
             // write your code here
             //dp way
             val row = costs.size
@@ -31,6 +31,44 @@ class paint_the_house {
 
             return dp[row - 1].min()
         }
+
+        fun minCost(costs: Array<IntArray>): Int {
+            //recursion way
+            val row = costs.size
+            val col = costs[0].size
+            val cache = Array(row) {
+                IntArray(col) { -1 }
+            }
+
+            // 返回值: 到当前点的最小值
+            fun dfs(i: Int, nextJ:Int):Int {
+                if (i < 0) {
+                    return 0
+                }
+
+                if (cache[i][nextJ] != -1) {
+                    return cache[i][nextJ]
+                }
+
+
+                var min = Int.MAX_VALUE
+                for (j in 0 until col) {
+                    if (nextJ == j) continue
+                    val ret = dfs(i - 1, j) + costs[i][j]
+                    if (ret < min) {
+                        min = ret
+                    }
+                }
+                cache[i][nextJ] = min
+                return min
+            }
+
+            for (j in 0 until col) {
+                dfs(row-1, j)
+            }
+            return cache[row - 1].min()
+        }
+
 
         fun minCostII(costs: Array<IntArray>): Int {
             // write your code here
@@ -60,7 +98,6 @@ class paint_the_house {
                     }
                 }
 
-
                 for (j in costs[0].indices) {
                     if (j == minIndex1) {
                         dp[i][j] = costs[i][j] + minValue2
@@ -82,9 +119,9 @@ class paint_the_house {
             println(
                 solution.minCost(
                     arrayOf(
-                        intArrayOf(14, 2, 11),
-                        intArrayOf(11, 14, 5),
-                        intArrayOf(14, 3, 10),
+                        intArrayOf(1, 10, 5),
+                        intArrayOf(8, 2, 7),
+                        intArrayOf(6, 9, 3)
                     )
                 )
             )
