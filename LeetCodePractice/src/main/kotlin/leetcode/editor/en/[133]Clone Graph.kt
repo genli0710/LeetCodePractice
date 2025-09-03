@@ -7,9 +7,9 @@ class clone_graph {
      * Definition for a Node.
 
      */
-//    class Node(var `val`: Int) {
-//        var neighbors: ArrayList<Node?> = ArrayList<Node?>()
-//    }
+    class Node(var `val`: Int) {
+        var neighbors: ArrayList<Node?> = ArrayList<Node?>()
+    }
 
     class Solution {
         fun cloneGraph(node: Node?): Node? {
@@ -60,10 +60,10 @@ class clone_graph {
         fun main(args: Array<String>) {
             val solution = Solution()
             // put your test code here
-            val node1 = Solution.Node(1)
-            val node2 = Solution.Node(2)
-            val node3 = Solution.Node(3)
-            val node4 = Solution.Node(4)
+            val node1 = Node(1)
+            val node2 = Node(2)
+            val node3 = Node(3)
+            val node4 = Node(4)
             node1.neighbors = arrayListOf(node2, node4)
             node2.neighbors = arrayListOf(node1, node3)
             node3.neighbors = arrayListOf(node2, node4)
